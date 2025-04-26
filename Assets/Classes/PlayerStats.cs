@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class PlayerStats : ScriptableObject
 {
-    public SerializableDictionary<PlayerStatTypes, float> entityStats = new SerializableDictionary<PlayerStatTypes, float>();
+    public SerializableDictionary<PlayerStatTypes, float> stats = new SerializableDictionary<PlayerStatTypes, float>();
 
 }
 
 public enum PlayerStatTypes
 {
-    speed,
-    jumpHeight,
+    walkSpeed,
+    sprintSpeed,
+    jumpForce,
     armor,
     size,
     maxHP,

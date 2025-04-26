@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4661eddac5cb1fa478e1c2960f91227b, type: 3}
-  m_Name: BaseWeapon
+  m_Name: ElectroWeapon
   m_EditorClassIdentifier: 
   stats:
     SerializedKeys: 00000000010000000200000003000000
     SerializedValues:
-    - 32
-    - 15
+    - 64
+    - 25
+    - 0.75
     - 1
-    - 1
-  weaponDamageType: 0
-  projectileSprite: {fileID: 1865952339040183261, guid: 62ab637e2f024b44084603eadaf2d7de, type: 3}
+  weaponDamageType: 3
+  projectileSprite: {fileID: -8812246010333443997, guid: e5d4930d24cb3fb4f9558cd0c8f8c249, type: 3}

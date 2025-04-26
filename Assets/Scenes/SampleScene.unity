@@ -150,6 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBulletCount: 6
   currBulletCount: 0
+  walkSpeed: 5
+  sprintSpeed: 8
+  jumpForce: 25
+  playerStats: {fileID: 11400000, guid: ad20cd73f9f7fee40b37e706729d8cd4, type: 2}
 --- !u!4 &318548408
 Transform:
   m_ObjectHideFlags: 0
@@ -615,6 +619,55 @@ Transform:
   - {fileID: 1238629018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1841402290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841402292}
+  - component: {fileID: 1841402291}
+  m_Layer: 0
+  m_Name: WeaponManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1841402291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841402290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3286b6aa3f582004fbe00ccdb3b750dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  travelSpeed: 15
+  travelTime: 1
+  damage: 32
+  bulletSprite: {fileID: 0}
+  weaponStats: {fileID: 11400000, guid: eed389b43751f2d488340919f60f522c, type: 2}
+--- !u!4 &1841402292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841402290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.39323127, y: 0.07679995, z: 1246.4509}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2001921775
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,8 +774,6 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   forward: {x: 0, y: 0}
   player: {fileID: 2001921782}
-  currSpeed: 0
-  currJumpForce: 0
   horizontal: 0
   bulletPrefab: {fileID: 7895152449791971302, guid: 0c4b22de51cb4474380e6f85bcd55e19, type: 3}
   playerManager: {fileID: 0}
@@ -766,3 +817,4 @@ SceneRoots:
   - {fileID: 2001921778}
   - {fileID: 1538567956}
   - {fileID: 318548408}
+  - {fileID: 1841402292}

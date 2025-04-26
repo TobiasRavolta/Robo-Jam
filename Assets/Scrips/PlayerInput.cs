@@ -8,16 +8,14 @@ public class PlayerInput : MonoBehaviour
 
     public Rigidbody2D player;
 
-    public float currSpeed;
-    public float currJumpForce;
-
     public float horizontal;
 
     public GameObject bulletPrefab;
 
-    public const float walkSpeed = 5;
-    public const float runSpeed = 8;
-    public const float jumpForce = 25;
+    float currSpeed;
+    float playerWalkSpeed;
+    float playerSprintSpeed;
+    float playerJumpForce;
 
     public const float gravity = 10;
 
@@ -35,7 +33,8 @@ public class PlayerInput : MonoBehaviour
         {
             playerManager = PlayerManager.instance;
         }
-       currJumpForce = jumpForce;
+
+        ApplyStats();
     }
 
     // Update is called once per frame
@@ -60,7 +59,7 @@ public class PlayerInput : MonoBehaviour
     private void InputCheck()
     {
         // Getting the input for horizontal movement
-        horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal");
 
         // Determining the direction the character is facing
         if (horizontal > 0)
@@ -76,17 +75,17 @@ public class PlayerInput : MonoBehaviour
         // Handling vertical movement (jumps)
         if (Input.GetKeyDown(KeyCode.W) && isGrounded())
         {
-            player.AddForce(new Vector2(0, currJumpForce), ForceMode2D.Impulse);
+            player.AddForce(new Vector2(0, playerJumpForce), ForceMode2D.Impulse);
         }
 
         // Handling sprinting
         if (Input.GetKey(KeyCode.LeftShift) && isGrounded())
         {
-            currSpeed = runSpeed;
+            currSpeed = playerSprintSpeed;
         }
         else if (isGrounded())
         {
-            currSpeed = walkSpeed;
+            currSpeed = playerWalkSpeed;
         }
 
         // Handling shooting
@@ -118,8 +117,30 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void ApplyStats()
+    {
+        if (PlayerManager.instance.playerStats != null)
+        {
+            PlayerStats playerStats = playerManager.playerStats;
+
+            playerStats.stats.TryGetValue(PlayerStatTypes.walkSpeed, out float walkSpeed);
+            playerWalkSpeed = walkSpeed;
+
+            playerStats.stats.TryGetValue(PlayerStatTypes.sprintSpeed, out float sprintSpeed);
+            playerSprintSpeed = sprintSpeed;
+
+            playerStats.stats.TryGetValue(PlayerStatTypes.jumpForce, out float jumpForce);
+            playerJumpForce = jumpForce;
+
+            playerStats.stats.TryGetValue(PlayerStatTypes.size, out float _size);
+
+            gameObject.transform.localScale *= _size;
+        }
+    }
+
+
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
     }
