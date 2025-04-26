@@ -21,6 +21,8 @@ public class PlayerInput : MonoBehaviour
 
     public const float gravity = 10;
 
+    public PlayerManager playerManager;
+
     [Header("Box Cast Variables")]
     public Vector2 boxSize;
     public float castDistance;
@@ -29,7 +31,11 @@ public class PlayerInput : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currJumpForce = jumpForce;
+        if (PlayerManager.instance != null)
+        {
+            playerManager = PlayerManager.instance;
+        }
+       currJumpForce = jumpForce;
     }
 
     // Update is called once per frame
@@ -86,7 +92,17 @@ public class PlayerInput : MonoBehaviour
         // Handling shooting
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(bulletPrefab, transform.position, transform.rotation); 
+            ShootBullet();
+        }
+    }
+
+    // ShootBullet() shoots a bullet in the direction the player is facing if the maximum active bullet count isn't reached already. Adds 1 to the current active bullet count.
+    public void ShootBullet()
+    {
+        if (playerManager.currBulletCount < playerManager.maxBulletCount)
+        {
+            Instantiate(bulletPrefab, transform.position, transform.rotation);
+            playerManager.currBulletCount += 1;
         }
     }
 

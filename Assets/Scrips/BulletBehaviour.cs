@@ -23,6 +23,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(travelTime);
         Destroy(gameObject);
+        PlayerManager.instance.currBulletCount -= 1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,6 +31,7 @@ public class BulletBehaviour : MonoBehaviour
         if (!(collision.tag == "Player" || collision.tag == "Bullet"))
         {
             Destroy(gameObject);
+            PlayerManager.instance.currBulletCount -= 1;
         }
     }
 }

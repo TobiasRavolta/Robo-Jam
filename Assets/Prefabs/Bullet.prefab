@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   travelSpeed: 12.5
-  travelTime: 0.75
+  travelTime: 1
 --- !u!61 &7760676744592558492
 BoxCollider2D:
   m_ObjectHideFlags: 0
