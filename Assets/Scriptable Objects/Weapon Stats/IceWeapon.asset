@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: IceWeapon
   m_EditorClassIdentifier: 
   stats:
-    SerializedKeys: 
-    SerializedValues: []
-  weaponDamageType: 0
-  projectileSprite: {fileID: 0}
+    SerializedKeys: 00000000010000000200000003000000
+    SerializedValues:
+    - 32
+    - 10
+    - 1
+    - 2
+  weaponDamageType: 2
+  projectileSprite: {fileID: -5010493470574435559, guid: a4f6f5b68c3e8b841a578341a11ac532, type: 3}

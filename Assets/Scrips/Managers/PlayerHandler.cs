@@ -28,6 +28,4 @@ public class PlayerManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
 }

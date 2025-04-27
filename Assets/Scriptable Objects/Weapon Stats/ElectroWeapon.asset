@@ -15,7 +15,7 @@ MonoBehaviour:
   stats:
     SerializedKeys: 00000000010000000200000003000000
     SerializedValues:
-    - 64
+    - 32
     - 25
     - 0.75
     - 1

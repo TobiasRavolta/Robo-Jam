@@ -15,9 +15,9 @@ MonoBehaviour:
   stats:
     SerializedKeys: 00000000010000000200000003000000
     SerializedValues:
-    - 48
-    - 10
-    - 1.25
-    - 0.75
+    - 32
+    - 15
+    - 1.5
+    - 0.5
   weaponDamageType: 1
   projectileSprite: {fileID: -21631781721587513, guid: 618a060c60103774fa372b659c2cb7a9, type: 3}
