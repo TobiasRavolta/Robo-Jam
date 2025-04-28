@@ -16,10 +16,12 @@ public class PlayerInput : MonoBehaviour
     float playerWalkSpeed;
     float playerSprintSpeed;
     float playerJumpForce;
+    float weight;
 
     public const float gravity = 10;
 
     public PlayerManager playerManager;
+    public GameManager gameManager;
 
     [Header("Box Cast Variables")]
     public Vector2 boxSize;
@@ -29,27 +31,24 @@ public class PlayerInput : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (GameManager.instance != null)
+        {
+            gameManager = GameManager.instance;
+        }
+
         if (PlayerManager.instance != null)
         {
             playerManager = PlayerManager.instance;
         }
-
-        ApplyStats();
     }
 
     // Update is called once per frame
     void Update()
     {
+        PauseCheck();
+        ApplyStats();
         InputCheck();
-
-        if (isGrounded())
-        {
-            player.gravityScale = 0;
-        }
-        else
-        {
-            player.gravityScale = gravity;
-        }
+        GravityCheck();
 
         movement = new Vector3(horizontal, 0, 0);
         player.linearVelocityX = movement.x * currSpeed;
@@ -58,40 +57,67 @@ public class PlayerInput : MonoBehaviour
 
     private void InputCheck()
     {
-        // Getting the input for horizontal movement
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if (!(gameManager.isPaused || gameManager.isMenuOpen))
+        {
+            // Getting the input for horizontal movement
+            horizontal = Input.GetAxisRaw("Horizontal");
 
-        // Determining the direction the character is facing
-        if (horizontal > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else if (horizontal < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            GetComponent<SpriteRenderer>().flipY = true;
-        }
+            // Determining the direction the character is facing
+            if (horizontal > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else if (horizontal < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                GetComponent<SpriteRenderer>().flipY = true;
+            }
 
-        // Handling vertical movement (jumps)
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded())
-        {
-            player.AddForce(new Vector2(0, playerJumpForce), ForceMode2D.Impulse);
-        }
+            // Handling vertical movement (jumps)
+            if (Input.GetKeyDown(KeyCode.W) && isGrounded())
+            {
+                player.AddForce(new Vector2(0, playerJumpForce), ForceMode2D.Impulse);
+            }
 
-        // Handling sprinting
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded())
-        {
-            currSpeed = playerSprintSpeed;
-        }
-        else if (isGrounded())
-        {
-            currSpeed = playerWalkSpeed;
-        }
+            // Handling sprinting
+            if (Input.GetKey(KeyCode.LeftShift) && isGrounded())
+            {
+                currSpeed = playerSprintSpeed;
+            }
+            else if (isGrounded())
+            {
+                currSpeed = playerWalkSpeed;
+            }
 
-        // Handling shooting
-        if (Input.GetKeyDown(KeyCode.Space))
+            // Handling shooting
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ShootBullet();
+            }
+        }
+    }
+
+    public void GravityCheck()
+    {
+        if (isGrounded())
         {
-            ShootBullet();
+            player.gravityScale = 0;
+        }
+        else
+        {
+            player.gravityScale = gravity * weight;
+        }
+    }
+
+    public void PauseCheck()
+    {
+        if (gameManager.isPaused || gameManager.isMenuOpen)
+        {
+            player.simulated = false;
+        }
+        else
+        {
+            player.simulated = true;
         }
     }
 
@@ -133,6 +159,10 @@ public class PlayerInput : MonoBehaviour
             playerJumpForce = jumpForce;
 
             playerStats.stats.TryGetValue(PlayerStatTypes.size, out float _size);
+            gameObject.transform.localScale *= _size;
+
+            playerStats.stats.TryGetValue(PlayerStatTypes.weight, out float _weight);
+            weight = _weight;
 
             gameObject.transform.localScale *= _size;
         }

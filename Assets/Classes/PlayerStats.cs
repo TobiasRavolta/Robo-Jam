@@ -18,4 +18,5 @@ public enum PlayerStatTypes
     armor,
     size,
     maxHP,
+    weight,
 };

@@ -21,7 +21,22 @@ public class BulletBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PauseCheck();
         transform.Translate(Vector2.right * Time.deltaTime * bulletTravelSpeed);
+    }
+
+    private void PauseCheck()
+    {
+        if (GameManager.instance.isPaused || GameManager.instance.isMenuOpen)
+        {
+            Time.timeScale = 0;
+            gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        }
     }
 
     private IEnumerator TravelTime()
